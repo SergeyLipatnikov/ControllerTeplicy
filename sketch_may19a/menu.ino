@@ -380,3 +380,75 @@ void Nastroyka() // Функция выбора меню на дисплее
     delay (200);
   }
 }
+
+void DataDisplay () {
+
+//  lcd.setCursor(0, 0);
+//  lcd.print("Bo");
+//  lcd.write(byte(1));
+//  lcd.write(byte(2));
+//  lcd.print("yx:");
+//
+//  lcd.setCursor(0, 1);
+//  lcd.print("t=");
+//  lcd.setCursor(4, 1);
+//  lcd.write(byte(4));
+//  lcd.setCursor(6, 1);
+//  lcd.write(byte(3));
+//  lcd.write(byte(5));
+//  lcd.print("a");
+//  lcd.write(byte(6));
+//  lcd.print(".=");
+//  lcd.setCursor(15, 1);
+//  lcd.print("%");
+//
+//  lcd.setCursor(0, 2);
+//  lcd.write(byte(7));
+//  lcd.print("o");
+//  lcd.write(byte(0));
+//  lcd.write(byte(3));
+//  lcd.print("a:");
+//  lcd.setCursor(13, 2);
+//  lcd.write(byte(7));
+//  lcd.print("o");
+//  lcd.write(byte(2));
+//  lcd.print(":");
+//
+//  lcd.setCursor(0, 3);
+//  lcd.print("t=");
+//  lcd.setCursor(4, 3);
+//  lcd.write(byte(4));
+//  lcd.setCursor(6, 3);
+//  lcd.write(byte(3));
+//  lcd.write(byte(5));
+//  lcd.print("a");
+//  lcd.write(byte(6));
+//  lcd.print(".=");
+//  lcd.setCursor(15, 3);
+//  lcd.print("%");
+//  lcd.setCursor(17, 3);
+//  lcd.print("L");    
+  
+  lcd.setCursor(0, 0);
+  lcd.print("Air:t=");
+  
+  lcd.setCursor(8, 0);
+  lcd.write(byte(4));
+  
+  lcd.setCursor(10, 0);
+  lcd.print("Door:");
+
+
+  lcd.setCursor(0, 1);
+  lcd.print("Rain:");
+
+  lcd.setCursor(9, 1);
+  lcd.print("Light:");
+
+  lcd.setCursor(0, 2);
+  lcd.print("Time:");
+
+  lcd.setCursor(10, 2);
+  lcd.print("Data:");
+
+  }

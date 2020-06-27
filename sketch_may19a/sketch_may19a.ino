@@ -44,9 +44,13 @@ unsigned char button_state[5];
 
 static unsigned char but_cnt[5]={0};
 
-#include <Wire.h>
+//#include <Wire.h>
 
-#include <LiquidCrystal_I2C.h>
+//#include <LiquidCrystal_I2C.h>
+
+#include <microWire.h>
+
+#include <microLiquidCrystal_I2C.h>
 
 #include <OneWire.h>
 
@@ -54,7 +58,9 @@ static unsigned char but_cnt[5]={0};
 
 #include <EEPROM.h>            // Библиотека памяти
 
-#include "Sodaq_DS3231.h"
+#include <microDS3231.h>
+
+MicroDS3231 rtc;
 
 LiquidCrystal_I2C lcd(LCD_ADDR, 20, 4);
 
@@ -91,7 +97,11 @@ int lightOut;                      // округленное значение о
 
 int timehour;                      // Переменная для считывания времени (часы)
 int timemin;                       // Переменная для считывания времени (минуты)
-int timeday;                       // Переменная для считывания времени (дни)
+int timesec;                       // Переменная для считывания времени (секунды)
+int timeday;                       // Переменная для считывания времени (дни) 
+int timemounth;                    // Переменная для считывания времени (месяцы)
+int timeyear;                      // Переменная для считывания времени (года)
+
 
 
 
@@ -249,15 +259,18 @@ lcd.createChar(4, lcd_gradus);  // градус
 lcd.createChar(5, lcd_l);       // буква л
 lcd.createChar(6, lcd_g);       // буква ж
 lcd.createChar(7, lcd_p);       // буква п
-
-
-  rtc.begin(); 
   
   sensor.begin();
 
   sensor.setResolution(12);
 
   sensor.requestTemperatures();
+  
+  if (rtc.lostPower()) {  //  при потере питания
+    rtc.setTime(COMPILE_TIME);  // установить время компиляции
+  }
+
+  //rtc.setTime(00, 06, 19, 27, 06, 2020); // устанвока времени вручную
 
   Buttons_Ini();
 
@@ -282,51 +295,7 @@ void loop() {
     memread = 1;
 
     // Выводим на дисплей неизменяемые символы.
-    lcd.setCursor(0, 0);
-    lcd.print("Bo");
-    lcd.write(byte(1));
-    lcd.write(byte(2));
-    lcd.print("yx:");
-
-    lcd.setCursor(0, 1);
-    lcd.print("t=");
-    lcd.setCursor(4, 1);
-    lcd.write(byte(4));
-    lcd.setCursor(6, 1);
-    lcd.write(byte(3));
-    lcd.write(byte(5));
-    lcd.print("a");
-    lcd.write(byte(6));
-    lcd.print(".=");
-    lcd.setCursor(15, 1);
-    lcd.print("%");
-
-    lcd.setCursor(0, 2);
-    lcd.write(byte(7));
-    lcd.print("o");
-    lcd.write(byte(0));
-    lcd.write(byte(3));
-    lcd.print("a:");
-    lcd.setCursor(13, 2);
-    lcd.write(byte(7));
-    lcd.print("o");
-    lcd.write(byte(2));
-    lcd.print(":");
-
-    lcd.setCursor(0, 3);
-    lcd.print("t=");
-    lcd.setCursor(4, 3);
-    lcd.write(byte(4));
-    lcd.setCursor(6, 3);
-    lcd.write(byte(3));
-    lcd.write(byte(5));
-    lcd.print("a");
-    lcd.write(byte(6));
-    lcd.print(".=");
-    lcd.setCursor(15, 3);
-    lcd.print("%");
-    lcd.setCursor(17, 3);
-    lcd.print("L");    
+    DataDisplay();
   }
 
   if (button_state[Button_Select]&ST_UNPRESSURE)           // Если кнопка ввода нажата
@@ -357,34 +326,37 @@ void loop() {
   }
   else
   {
-    lcd.setCursor(2,1);   
+    lcd.setCursor(6,0);   
     lcd.print(TempVozd);
     sensorType = 0;                  // Ставим флаг, что работаем от цифрового датчика температуры воздуха
-    lcd.setCursor(17, 1);            // Выводим на дисплей, что работаем на цифровом датчике
-    lcd.print("D");
-    lcd.setCursor(13, 0);
+//    lcd.setCursor(17, 1);            // Выводим на дисплей, что работаем на цифровом датчике
+//    lcd.print("D");
+    lcd.setCursor(5, 1);
     lcd.print(Rain);
-    lcd.setCursor(17, 0);
+    lcd.setCursor(15, 1);
     lcd.print(Svet);
   }
 
-     if ( (millis() - Vremya) > 30000 || millis() < Vremya)
-
-      {
-       lcd.noBacklight();             // Подсветка дисплея отключается    
-      } 
-
-   if ( digitalRead(Podsvetka) == 1)
-
-      {
-       lcd.backlight();              // Подсветка дисплея
-       Vremya = millis();
-      }  
-
-      lcd.setCursor(10,0);              // установка курсора
-      lcd.print("A");
+//     if ( (millis() - Vremya) > 30000 || millis() < Vremya)
+//
+//      {
+//       lcd.noBacklight();             // Подсветка дисплея отключается    
+//      } 
+//
+//   if ( digitalRead(Podsvetka) == 1)
+//
+//      {
+//       lcd.backlight();              // Подсветка дисплея
+//       Vremya = millis();
+//      }  
+//
+//      lcd.setCursor(10,0);              // установка курсора
+//      lcd.print("A");
       
     DecisionAfterSensors ();
+
+    printTimeData();
+    
 //    TimeData();
 
     delay(3000);

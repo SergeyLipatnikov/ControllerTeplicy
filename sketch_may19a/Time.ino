@@ -1,13 +1,23 @@
-void TimeData(){
+void printTimeData() {
 
-DateTime now = rtc.now();           // получение даты - времени
-   timehour = now.hour();          // Переменная для считывания времени (часы)
-   timemin = now.minute();         // Переменная для считывания времени (минуты)
-   timeday = now.date();           // Переменная для считывания времени (минуты)
+  timehour = rtc.getHours();                   
+  timemin = rtc.getMinutes();                       
+  timesec = rtc.getSeconds();
+  timeday = rtc.getDay();                       
+  timemounth = rtc.getDate();                    
+  timeyear = rtc.getYear();
+
+  PrintTime();
+
+  PrintData();
+
+}
+
+void PrintTime() {
+
+  lcd.setCursor(0,3);
   
-   lcd.setCursor(14,0);                // Начинаем выводить данные на дисплей
-   
-  if (timehour < 10)
+    if (timehour < 10)
   { 
     lcd.print("0");
     lcd.print(timehour);
@@ -18,7 +28,6 @@ DateTime now = rtc.now();           // получение даты - време�
   }
       
   lcd.print(":"); 
-  lcd.setCursor(17,0);
    
   if (timemin < 10)
   { 
@@ -29,4 +38,55 @@ DateTime now = rtc.now();           // получение даты - време�
   {
     lcd.print(timemin);
   }
-}
+
+  lcd.print(":");
+
+  if (timesec < 10)
+  { 
+    lcd.print("0");
+    lcd.print(timesec);
+  }
+  else
+  {
+    lcd.print(timesec);
+  }
+  
+  }
+
+ void PrintData() {
+  
+  if (timeday < 10)
+  { 
+    lcd.setCursor(10,3);
+    lcd.print("0");
+    lcd.print(timeday);
+  }
+  else
+  {
+   lcd.print(timeday);
+  }
+      
+  lcd.print("/"); 
+   
+  if (timemounth < 10)
+  { 
+    lcd.print("0");
+    lcd.print(timemounth);
+  }
+  else
+  {
+    lcd.print(timemounth);
+  }
+
+  lcd.print("/");
+
+//  if (timeyar < 10)
+//  { 
+//    lcd.print("0");
+//    lcd.print(timesec);
+//  }
+//  else
+//  {
+    lcd.print(timeyear);
+//  }
+  }
