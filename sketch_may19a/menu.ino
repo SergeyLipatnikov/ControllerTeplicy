@@ -448,8 +448,14 @@ void DataDisplay () {
   lcd.setCursor(0, 2);
   lcd.print("Time:");
 
-  lcd.setCursor(10, 2);
+  lcd.setCursor(7, 2);
   lcd.print("Data:");
+
+  lcd.setCursor(13, 2);
+  lcd.print("Hum:");
+
+  lcd.setCursor(19, 2);
+  lcd.print("%");
 
   }
 

@@ -1,5 +1,7 @@
 #define LCD_ADDR 0x27
 
+#define BME_ADDR 0x76
+
 #define ONE_WIRE_BUS 9
 
 #define DHTLIB_OK 0
@@ -60,6 +62,10 @@ static unsigned char but_cnt[5]={0};
 
 #include <microDS3231.h>
 
+#include <GyverBME280.h>
+
+GyverBME280 bme;
+
 MicroDS3231 rtc;
 
 LiquidCrystal_I2C lcd(LCD_ADDR, 20, 4);
@@ -107,6 +113,9 @@ int timeyear;                      // Переменная для считыва
 
 int Rain;
 int Svet;
+
+int TempVozdBme280;
+int HumVozdBme280;
 
 byte Datasend[16];                  // Массив для отправки данных в ESP8266
 //unsigned long Vremya_send_start = 0;     // Переменная для определения времени задержки отправки данных после включения
@@ -265,6 +274,8 @@ lcd.createChar(7, lcd_p);       // буква п
   sensor.setResolution(12);
 
   sensor.requestTemperatures();
+
+  bme.begin();
   
   if (rtc.lostPower()) {  //  при потере питания
     rtc.setTime(COMPILE_TIME);  // установить время компиляции
@@ -312,27 +323,11 @@ void loop() {
   }
 
   DatchikVozd (); // Работаем с цифровым датчиком температуры и влажности воздуха
+  
   DatchikDozd ();
+  
   DatchikSveta ();
 
-  if (TempVozd==85)  // Если цифровой датчик температуры завис, используем данные с резервного аналогового
-  {
-    lcd.setCursor(6, 0);            // Выводим на дисплей, что работаем на резервном аналоговом датчике
-    lcd.print("!!");
-//    TempVozd = temperatura_out;      // переключаемся на работу от резервного аналогового датчика температуры воздуха
-//    sensorType = 1;                  // ставим флаг работы от аналогового датчика
-//    lcd.setCursor(17, 1);            // Выводим на дисплей, что работаем на резервном аналоговом датчике
-//    lcd.print("A");
-  }
-  else
-  {
-    lcd.setCursor(6,0);   
-    lcd.print(TempVozd);
-    sensorType = 0;                  // Ставим флаг, что работаем от цифрового датчика температуры воздуха
-//    lcd.setCursor(17, 1);            // Выводим на дисплей, что работаем на цифровом датчике
-//    lcd.print("D");
-    DisplayDataStatusSensors ();
-  }
 
     DisplayBacklight();
       
