@@ -334,21 +334,7 @@ void loop() {
     DisplayDataStatusSensors ();
   }
 
-//     if ( (millis() - Vremya) > 30000 || millis() < Vremya)
-//
-//      {
-//       lcd.noBacklight();             // Подсветка дисплея отключается    
-//      } 
-//
-//   if ( digitalRead(Podsvetka) == 1)
-//
-//      {
-//       lcd.backlight();              // Подсветка дисплея
-//       Vremya = millis();
-//      }  
-//
-//      lcd.setCursor(10,0);              // установка курсора
-//      lcd.print("A");
+    DisplayBacklight();
       
     DecisionAfterSensors ();
 

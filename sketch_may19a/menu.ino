@@ -452,3 +452,21 @@ void DataDisplay () {
   lcd.print("Data:");
 
   }
+
+void DisplayBacklight() {
+  
+  
+     if ( (millis() - Vremya) > 30000 || millis() < Vremya)
+
+      {
+       lcd.noBacklight();             // Подсветка дисплея отключается    
+      } 
+
+   if ( digitalRead(Up) == 1)
+
+      {
+       lcd.backlight();              // Подсветка дисплея
+       Vremya = millis();
+      }  
+  
+  }
