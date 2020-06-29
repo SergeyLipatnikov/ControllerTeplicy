@@ -130,6 +130,8 @@ void Nastroyka() // Функция выбора меню на дисплее
    void Nastr_Parametr ()          // Функция настройки параметров с кнопок и сохранения их в EEPROM
 {
 
+  Parametr[9] = 0;
+  
   lcd.clear();                 // Очистка дисплея
  
   int Kluch = 1;               // Задаем значение, не позволяющее покинуть функцию без команды
@@ -209,6 +211,17 @@ void Nastroyka() // Функция выбора меню на дисплее
 
     lcd.setCursor(12, 0);
 
+    if (nastr == 8){
+
+        lcd.setCursor(12, 0);
+        
+        DoorStatusDisplay ();
+      
+    }
+      
+    else 
+    {
+
     if (Parametr[nastr] < 10)      // Прописываем пустое место перед единицами
     {      
       lcd.print("  ");
@@ -235,6 +248,13 @@ void Nastroyka() // Функция выбора меню на дисплее
 
     lcd.print(Parametr[nastr_d]);
 
+    lcd.setCursor(15, 0);
+    
+    
+    lcd.print(" ");
+    
+    }
+
     if (nastr == KolNactr - 1){
       
     if (button_state[Button_Select]&ST_UNPRESSURE)        // Если нажата кнопка выхода из режима выбора настроек
@@ -254,6 +274,8 @@ void Nastroyka() // Функция выбора меню на дисплее
     }
 
     }
+
+    
     
     if (button_state[Button_Select]&ST_UNPRESSURE)       // Если нажата кнопка выбора настроечного параметра
     {
@@ -267,14 +289,35 @@ void Nastroyka() // Функция выбора меню на дисплее
       
       int Kluch_2 = 1;                 // Задаем значение, не позволяющее покинуть цикл без команды
       nz = 0;                           // Обнуляем счетчик цикла ожидания
-      lcd.setCursor(10, 0);
-      lcd.print(" ");
-      lcd.setCursor(15, 0);
-      lcd.print("<");
+
+      if (nastr == 8)
+        {
+          lcd.setCursor(10, 0);
+          lcd.print(" ");
+          lcd.setCursor(19, 0);
+          lcd.print("<");
+
+        }
+       else {
+          lcd.setCursor(10, 0);
+          lcd.print(" ");
+          lcd.setCursor(15, 0);
+          lcd.print("<");
+        
+        }
 
       while (Kluch_2 == 1)             // Цикл выбора значения параметра
       {
-                
+        if (nastr == 8){
+
+          lcd.setCursor(12, 0);
+
+          DoorStatusDisplay ();
+          
+          }
+          
+        else 
+        {        
         
         lcd.setCursor(12, 0);
 
@@ -298,6 +341,7 @@ void Nastroyka() // Функция выбора меню на дисплее
 
         delay (100);                 // Ожидание, отвечает за скорость смены значений
 
+        
         if (button_state[Button_Right]&ST_UNPRESSURE) // Если кнопка вправо нажата, увеличиваем значение параметра
         {
           
@@ -326,14 +370,45 @@ void Nastroyka() // Функция выбора меню на дисплее
           --Parametr[nastr];
         }
 
-        if (Parametr[nastr] < 1)     // Задаем границы для значений параметров, в том числе
+        if (Parametr[0] < 1)     // Задаем границы для значений параметров, в том числе
         {                            // обусловленные возможностями ячейки памяти (256)
-          Parametr[nastr] = 250;
+          Parametr[0] = 70;
         }
 
-        if (Parametr[nastr] > 250)
+        if (Parametr[0] > 70)
+        {
+          Parametr[0] = 1;
+        }
+
+        if (Parametr[1] < 1)     // Задаем границы для значений параметров, в том числе
+        {                            // обусловленные возможностями ячейки памяти (256)
+          Parametr[1] = 70;
+        }
+
+        if (Parametr[1] > 70)
+        {
+          Parametr[1] = 1;
+        }
+
+         if (Parametr[nastr] < 1)     // Задаем границы для значений параметров, в том числе
+        {                            // обусловленные возможностями ячейки памяти (256)
+          Parametr[nastr] = 900;
+        }
+
+        if (Parametr[nastr] > 900)
         {
           Parametr[nastr] = 1;
+        }
+
+        }
+        
+        if (nastr == 8)
+        {
+
+          ChangeStatusDoorOpen ();
+
+          Parametr[8] = StatusDoor;
+          
         }
 
         if (button_state[Button_Select]&ST_UNPRESSURE)  // Если в этом режиме нажата кнопка Ввод,
@@ -347,11 +422,25 @@ void Nastroyka() // Функция выбора меню на дисплее
         ResetButtonState(Button_Select, ST_LOCKED);
           
           EEPROM.write(nastr, Parametr[nastr]);
+
+        if (nastr == 8)
+        {
+          lcd.setCursor(19, 0);
+          lcd.print("+");
+          delay (500);
+          lcd.setCursor(19, 0);
+          lcd.print(" ");               // Стираем значок
+
+        }
+        else {
           lcd.setCursor(15, 0);
           lcd.print("+");
           delay (500);
           lcd.setCursor(15, 0);
-          lcd.print(" ");             // Стираем значок
+          lcd.print(" ");
+        
+        }
+          
           Kluch_2 = 0;
           nz = 0;
           memread = 0;
@@ -376,6 +465,9 @@ void Nastroyka() // Функция выбора меню на дисплее
 //        }
       }
     }
+
+    HandleDoorOpenFunction ();
+    
     delay (200);
   }
 }
