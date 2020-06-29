@@ -107,7 +107,6 @@ void Nastroyka() // Функция выбора меню на дисплее
 
         if (menu == 2)
         {
-//          Timeset ();
         lcd.clear();                     // Очистка дисплея
         Kluch_5 = 0;
         nz = 0;
@@ -115,16 +114,16 @@ void Nastroyka() // Функция выбора меню на дисплее
         break;
         }
 
-        else
+        else if (menu == 0)
         {
           Nastr_Parametr ();
         }
+        else if (menu == 1)
+        {
+          Timeset ();
+        }
       }
 
-//      if (digitalRead(Podsvetka) == 1)
-//      {
-//        TestMotor();
-//      }
     }
   }
 
@@ -359,22 +358,22 @@ void Nastroyka() // Функция выбора меню на дисплее
           continue;
         }
 
-        if (button_state[Button_Up]&ST_UNPRESSURE)   // Если нажата кнопка выхода, выходим в предыдущее меню
-        {                             // выбора номера параметра,
-        SetButtonState(Button_Up, ST_LOCKED);
-
-        ResetButtonState(Button_Up, ST_UNPRESSURE);
-
-        SetButtonState(Button_Up, ST_PRESSURE);
-
-        ResetButtonState(Button_Up, ST_LOCKED);
-          
-          lcd.setCursor(15, 0);
-          lcd.print(" ");             // попутно стирая на дисплее значок
-          Kluch_2 = 0;
-          nz = 0;
-          continue;
-        }
+//        if (button_state[Button_Up]&ST_UNPRESSURE)   // Если нажата кнопка выхода, выходим в предыдущее меню
+//        {                             // выбора номера параметра,
+//        SetButtonState(Button_Up, ST_LOCKED);
+//
+//        ResetButtonState(Button_Up, ST_UNPRESSURE);
+//
+//        SetButtonState(Button_Up, ST_PRESSURE);
+//
+//        ResetButtonState(Button_Up, ST_LOCKED);
+//          
+//          lcd.setCursor(15, 0);
+//          lcd.print(" ");             // попутно стирая на дисплее значок
+//          Kluch_2 = 0;
+//          nz = 0;
+//          continue;
+//        }
       }
     }
     delay (200);

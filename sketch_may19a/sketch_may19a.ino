@@ -46,10 +46,6 @@ unsigned char button_state[5];
 
 static unsigned char but_cnt[5]={0};
 
-//#include <Wire.h>
-
-//#include <LiquidCrystal_I2C.h>
-
 #include <microWire.h>
 
 #include <microLiquidCrystal_I2C.h>
@@ -162,7 +158,9 @@ String NameClockSet[] =
   "date:       ",
   "day of week:",
   "hour:       ",
-  "minute:     "
+  "minute:     ",
+  "second:     ",
+  "EXIT        "
 };
 
 int const PositivMotor = 4;      // номер пина мотора открывания форточки тыла 1
