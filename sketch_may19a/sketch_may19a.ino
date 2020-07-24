@@ -113,6 +113,9 @@ int darkness = 550;
 int tempOpen;
 int tempClose;
 bool StatusDoor;
+int ActiveStatusDoor;
+int ChangeStatus;
+int DecisionSensors;
 
 
 int Rain;
@@ -311,6 +314,7 @@ void loop() {
     {
       Parametr[i] = EEPROM.read(i);
     }
+    StatusDoor = Parametr[8];
     memread = 1;
 
     // Выводим на дисплей неизменяемые символы.
@@ -340,6 +344,8 @@ void loop() {
     DisplayBacklight();
       
     DecisionAfterSensors ();
+
+    AutomaticsDoorOpenFunction ();
 
     printTimeData();
     

@@ -86,50 +86,50 @@ tempClose = Parametr[1];
     }
  }
 
- void DisplayDataStatusSensors () {
-
-  if (Rain <= GoRain) {
-
-    lcd.setCursor(5, 1);
-    lcd.print("Yes");
-//    lcd.print (Rain);
-    
-    }
-    else {
-      
-    lcd.setCursor(5, 1);
-    lcd.print("No ");
-//    lcd.print (Rain);  
-      }
-
-  if (Svet <= lighting) {
-    
-    lcd.setCursor(15, 1);
-    lcd.print("Light");
-    
-    }
-    else {
-      
-    lcd.setCursor(15, 1);
-    lcd.print("Dark ");
-      
-      }
-
-    lcd.setCursor(15,0);
-    DoorStatusDisplay ();
-  }
+// void DisplayDataStatusSensors () {
+//
+//  if (Rain <= GoRain) {
+//
+//    lcd.setCursor(5, 1);
+//    lcd.print("Yes");
+////    lcd.print (Rain);
+//    
+//    }
+//    else {
+//      
+//    lcd.setCursor(5, 1);
+//    lcd.print("No ");
+////    lcd.print (Rain);  
+//      }
+//
+//  if (Svet <= lighting) {
+//    
+//    lcd.setCursor(15, 1);
+//    lcd.print("Light");
+//    
+//    }
+//    else {
+//      
+//    lcd.setCursor(15, 1);
+//    lcd.print("Dark ");
+//      
+//      }
+//
+//    lcd.setCursor(15,0);
+//    DoorStatusDisplay ();
+//  }
 
 void DoorStatusDisplay () {
 
   
-  if (StatusDoor == 1){
+  if (StatusDoor == 0){
     
-    lcd.print("Open");
+    lcd.print("Clos");
     
     }
     else {
       
-    lcd.print("Clos");
+    lcd.print("Open");
       
       }
   
@@ -187,15 +187,36 @@ void ChangeStatusDoorOpen () {
 
  void AutomaticsDoorOpenFunction () {
 
+//    if (StatusDoor == 1) {
+//
+//        FuncOkon(Otkryt);
+//
+//    }
+//
+//    else {
+//      
+//     FuncOkon(Zakryt); 
+//      
+//      }
+
+  
+
     if (ActiveStatusDoor ==  ChangeStatus) {
       
       if (DecisionSensors == 1) {
 
         FuncOkon(Otkryt);
 
-        ActiveStatusDoor = 1;
-        
-        ChangeStatus = 1;
+        lcd.setCursor(10, 2);
+    lcd.print("Open");
+
+//        Parametr[8] = 1;
+//
+//        StatusDoor = 1;
+
+//        ActiveStatusDoor = 1;
+//        
+//        ChangeStatus = 1;
         
         }
         
@@ -203,9 +224,16 @@ void ChangeStatusDoorOpen () {
 
         FuncOkon(Zakryt);
 
-        ActiveStatusDoor = 0;
-        
-        ChangeStatus = 0;      
+        lcd.setCursor(10, 2);
+    lcd.print("Close");
+
+//        Parametr[8] = 0;
+//
+//         StatusDoor = 0;
+
+//        ActiveStatusDoor = 0;
+//        
+//        ChangeStatus = 0;      
         
         }
         
@@ -217,9 +245,16 @@ void ChangeStatusDoorOpen () {
         
         FuncOkon(Otkryt);
 
-        ActiveStatusDoor = 1;
-        
-        ChangeStatus = 1;
+        lcd.setCursor(10, 2);
+    lcd.print("Open");
+
+//        Parametr[8] = 1;
+//
+//         StatusDoor = 1;
+
+//        ActiveStatusDoor = 1;
+//        
+//        ChangeStatus = 1;
         
         }
 
@@ -227,9 +262,16 @@ void ChangeStatusDoorOpen () {
         
         FuncOkon(Zakryt);
 
-        ActiveStatusDoor = 0;
-        
-        ChangeStatus = 0;    
+        lcd.setCursor(10, 2);
+        lcd.print("Close");
+
+//        Parametr[8] = 0;
+//
+//        StatusDoor = 0;
+
+//        ActiveStatusDoor = 0;
+//        
+//        ChangeStatus = 0;    
         
         }
       

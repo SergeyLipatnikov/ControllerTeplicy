@@ -118,10 +118,7 @@ void Nastroyka() // Функция выбора меню на дисплее
         {
           Nastr_Parametr ();
         }
-        else if (menu == 1)
-        {
-          Timeset ();
-        }
+
       }
 
     }
@@ -519,51 +516,22 @@ void DataDisplay () {
 //  lcd.print("%");
 //  lcd.setCursor(17, 3);
 //  lcd.print("L");    
+ 
   
   lcd.setCursor(0, 0);
-  lcd.print("Air:t=");
-  
-  lcd.setCursor(8, 0);
-  lcd.write(byte(4));
-  
-  lcd.setCursor(10, 0);
   lcd.print("Door:");
 
-
   lcd.setCursor(0, 1);
-  lcd.print("Rain:");
-
-  lcd.setCursor(9, 1);
-  lcd.print("Light:");
+  lcd.print("Status:");
 
   lcd.setCursor(0, 2);
-  lcd.print("Time:");
+  lcd.print("Active:");
 
-  lcd.setCursor(7, 2);
-  lcd.print("Data:");
+  lcd.setCursor(0, 3);
+  lcd.print("Change:");
 
-  lcd.setCursor(13, 2);
-  lcd.print("Hum:");
+  lcd.setCursor(10, 1);
+  lcd.print("Decision:");
 
-  lcd.setCursor(19, 2);
-  lcd.print("%");
 
-  }
-
-void DisplayBacklight() {
-  
-  
-     if ( (millis() - Vremya) > 30000 || millis() < Vremya)
-
-      {
-       lcd.noBacklight();             // Подсветка дисплея отключается    
-      } 
-
-   if ( digitalRead(Up) == 1)
-
-      {
-       lcd.backlight();              // Подсветка дисплея
-       Vremya = millis();
-      }  
-  
   }
