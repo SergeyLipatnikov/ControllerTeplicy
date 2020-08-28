@@ -137,7 +137,7 @@ void DoorStatusDisplay () {
 
 void ChangeStatusDoorOpen () {
 
-  ActiveStatusDoor = StatusDoor;
+  ActiveStatusDoor = true;
   
   if (button_state[Button_Right]&ST_UNPRESSURE) // Если кнопка вправо нажата, увеличиваем значение параметра
         {
@@ -180,6 +180,8 @@ void ChangeStatusDoorOpen () {
         lcd.setCursor(12,0);
 
         DoorStatusDisplay ();
+
+        ActiveStatusDoor = 0;
         
         }
         
@@ -187,95 +189,95 @@ void ChangeStatusDoorOpen () {
 
  void AutomaticsDoorOpenFunction () {
 
-//    if (StatusDoor == 1) {
-//
-//        FuncOkon(Otkryt);
-//
-//    }
-//
-//    else {
-//      
-//     FuncOkon(Zakryt); 
-//      
-//      }
-
-  
-
-    if (ActiveStatusDoor ==  ChangeStatus) {
-      
-      if (DecisionSensors == 1) {
+    if (StatusDoor == 1) {
 
         FuncOkon(Otkryt);
 
-        lcd.setCursor(10, 2);
-    lcd.print("Open");
-
-//        Parametr[8] = 1;
-//
-//        StatusDoor = 1;
-
-//        ActiveStatusDoor = 1;
-//        
-//        ChangeStatus = 1;
-        
-        }
-        
-       else {
-
-        FuncOkon(Zakryt);
-
-        lcd.setCursor(10, 2);
-    lcd.print("Close");
-
-//        Parametr[8] = 0;
-//
-//         StatusDoor = 0;
-
-//        ActiveStatusDoor = 0;
-//        
-//        ChangeStatus = 0;      
-        
-        }
-        
-      }
+    }
 
     else {
       
-      if (ChangeStatus == 1) {
-        
-        FuncOkon(Otkryt);
-
-        lcd.setCursor(10, 2);
-    lcd.print("Open");
-
-//        Parametr[8] = 1;
-//
-//         StatusDoor = 1;
-
-//        ActiveStatusDoor = 1;
-//        
-//        ChangeStatus = 1;
-        
-        }
-
-       else {
-        
-        FuncOkon(Zakryt);
-
-        lcd.setCursor(10, 2);
-        lcd.print("Close");
-
-//        Parametr[8] = 0;
-//
-//        StatusDoor = 0;
-
-//        ActiveStatusDoor = 0;
-//        
-//        ChangeStatus = 0;    
-        
-        }
+     FuncOkon(Zakryt); 
       
       }
+
+  
+
+//    if (ActiveStatusDoor ==  ChangeStatus) {
+//      
+//      if (DecisionSensors == 1) {
+//
+//        FuncOkon(Otkryt);
+//
+//        lcd.setCursor(10, 2);
+//    lcd.print("Open");
+//
+////        Parametr[8] = 1;
+////
+////        StatusDoor = 1;
+//
+////        ActiveStatusDoor = 1;
+////        
+////        ChangeStatus = 1;
+//        
+//        }
+//        
+//       else {
+//
+//        FuncOkon(Zakryt);
+//
+//        lcd.setCursor(10, 2);
+//    lcd.print("Close");
+//
+////        Parametr[8] = 0;
+////
+////         StatusDoor = 0;
+//
+////        ActiveStatusDoor = 0;
+////        
+////        ChangeStatus = 0;      
+//        
+//        }
+//        
+//      }
+//
+//    else {
+//      
+//      if (ChangeStatus == 1) {
+//        
+//        FuncOkon(Otkryt);
+//
+//        lcd.setCursor(10, 2);
+//    lcd.print("Open");
+//
+////        Parametr[8] = 1;
+////
+////         StatusDoor = 1;
+//
+////        ActiveStatusDoor = 1;
+////        
+////        ChangeStatus = 1;
+//        
+//        }
+//
+//       else {
+//        
+//        FuncOkon(Zakryt);
+//
+//        lcd.setCursor(10, 2);
+//        lcd.print("Close");
+//
+////        Parametr[8] = 0;
+////
+////        StatusDoor = 0;
+//
+////        ActiveStatusDoor = 0;
+////        
+////        ChangeStatus = 0;    
+//        
+//        }
+//      
+//      }
       
   
   }

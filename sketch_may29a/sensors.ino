@@ -33,6 +33,18 @@ void DatchikVozd () // Функция получения данных с дат�
 //
 //  lcd.setCursor(6,0);
 //  PrintTemperatureBme280 ();
+
+
+
+
+
+
+
+
+
+
+
+
   
   
 }
